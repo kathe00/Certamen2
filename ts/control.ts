@@ -3,18 +3,35 @@ const $:JQueryStatic=jquery;
 
 /* ----------------------------------------------------------- EDITAR INFORMACIÓN ------------------------------------------------------------------- */
 
-const formulario = document.querySelectorAll('.needs-validation');
 const nom = document.getElementById('formNombre');
 const rut = document.getElementById('formRut');
 const tel = document.getElementById('formTelefono');
 const email = document.getElementById('formEmail');
 const edad = document.getElementById('formEdad');
 
-//se recorre el formulario como un array
-Array.prototype.slice.call(formulario).forEach(function (form) {
-    //se crea un event listener del boton "actualizar" para validar
-    form.addEventListener('submit', function (event:any){
-  
+//no entiendo por qué continua haciendo la accion de submit y se recarga la pagina :(
+$("#actualizar").on("click",function(form){
+    let nuevo = $("#formNombre").val();
+    console.log(nuevo);
+
+    if(validarFormulario()){
+        console.log("valido");
+        
+    }else{
+        console.log("invalido");
+        form.preventDefault;
+        form.stopPropagation;
+    }
+
+})
+
+function validarFormulario(){
+    validarInputSimple("formNombre");
+    document.getElementById("formNombre")?.addEventListener('input', function() {validarCampoNoVacio($("#formNombre"));})
+    return false;
+}
+/*
+$("#actualizar").on("click",function(){
       //validar el campo "nombre"
       validarInputSimple("formNombre");
 
@@ -29,33 +46,19 @@ Array.prototype.slice.call(formulario).forEach(function (form) {
   
       //validar el campo "telefono"
       validarTelefono();
-  
-  
-      //validar el campo "asignatura"
-      if($("#checkAs5").is(':checked')){
-        validarInputSimple("asignatura");
-      }else{
-        $("#asignatura").addClass('is-valid');
-      }
-  
-      //validar que los comentarios no sean más de 500 caracteres
-      validarInputSimple("coments");
       
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
-  
       //Si todo ha sido validado
       var estado1 = (nom?.matches('.is-valid')&&rut?.matches('.is-valid')&&email?.matches('.is-valid')&&tel?.matches('.is-valid')&&edad?.matches('.is-valid'));
-  
-      if(estado1){
-        //guardar los datos
+      console.log("paso por aqui");
+      if(!estado1){
+            //mostrar invalido
+      }else{
+            //guardar
       }
-  
-    })
-  
-  })
+})
+*/
+
+
   
   /* ---------------------- FUNCIONES -------------------- */
   
@@ -83,7 +86,7 @@ Array.prototype.slice.call(formulario).forEach(function (form) {
   }
   
   /* ------------------------- Validar rut ------------------ */
-  
+  /*
   //rut
   function formatoValidoRut(rut:any){
     var pattern = /^\d{7,8}-[k|K|\d]{1}$/;
@@ -117,7 +120,7 @@ Array.prototype.slice.call(formulario).forEach(function (form) {
   }
   
   /* ------------------------ Validar nro de teléfono ----------------------- */
-  
+  /*
   function formatoValidoTelefono(numero:any){
     if(numero > 99999999 && numero < 1000000000){
       return true;
@@ -158,20 +161,43 @@ const region = document.getElementById("formRegion");
 
 region?.addEventListener("change",function(e:any){
     let valor = $("#formRegion").val();
-    console.log("a");
     console.log(valor);
     switch(valor){
-        case 1: let comunasArica = ["Arica","Camarones","Putre","General Lagos"];
+        case "1": let comunasArica = ["Arica","Camarones","Putre","General Lagos"];
                 desplegarComunas(comunasArica);
                 break;
-        case 2: let comunasTarap = ["Iquique","Alto Hospicio","Pozo Almonte","Camiña","Colchane","Huara","Pica"];
+        case "2": let comunasTarap = ["Iquique","Alto Hospicio","Pozo Almonte","Camiña","Colchane","Huara","Pica"];
                 desplegarComunas(comunasTarap);
                 break;
-        case 3: let comunasAntof = ["Antofagasta","Mejillones","Sierra Gorda","Taltal","Calama","Ollague","San Pedro de Atacama","Tocopilla","María Elena"];
+        case "3": let comunasAntof = ["Antofagasta","Mejillones","Sierra Gorda","Taltal","Calama","Ollague","San Pedro de Atacama","Tocopilla","María Elena"];
                 desplegarComunas(comunasAntof);
                 break;
-        case 4: let comunasAtac = ["Chañaral","Diego de Almagro","Copiapó","Caldera","Tierra Amarilla","Vallenar","Alto del Carmen"];
+        case "4": let comunasAtac = ["Chañaral","Diego de Almagro","Copiapó","Caldera","Tierra Amarilla","Vallenar","Alto del Carmen"];
                 desplegarComunas(comunasAtac);
+                break;
+        case "5": let comunasCoquim = ["Illapel","Canela","Los Vilos","Salamanca","Coquimbo","Andacollo","La Higuera","La Serena","Paihuano","Vicuña","Ovalle","Combarbalá","Monte Patria","Punitaqui","Río Hurtado"];
+                desplegarComunas(comunasCoquim);
+                break;
+        case "6": let comunasValpo = ["Los Andes","Calle Larga","Rinconada","San Esteban","Quilpué","Limache","Olmué","Villa Alemana","La Ligua","Cabildo","Papudo","Petorca","Zapallar","Quillota","Hijuelas","La Calera","La Cruz","Nogales","San Antonio","Algarrobo","Cartagena","El Quisco","El Tabo","Santo Domingo","San Felipe","Catemu","Llay Llay","Panquehue","Putaendo","Santa María","Valparaíso","Casablanca","Concón","Juan Fernandez","Puchuncaví","Quintero","Viña del Mar"];
+                desplegarComunas(comunasValpo);
+                break;
+        case "7": let comunasMet= ["Colina","Lampa","Buin","Melipilla","Santiago"];
+                desplegarComunas(comunasMet);
+                break;
+        case "8": let comunasOhigg = ["Rancagua","Coinco","Doñihue","Rengo"];
+                desplegarComunas(comunasOhigg);
+                break;
+        case "9": let comunasMaule = ["Cauquenes","Pelluhue","Curicó","Molina"];
+                desplegarComunas(comunasMaule);
+                break;
+        case "10": let comunasBio = ["Lebu","Arauco","Contulmo","Los Ángeles","Concepción"];
+                desplegarComunas(comunasBio);
+                break;
+        case "11": let comunasArau = ["Temuco","Cunco","Toltén","Lautaro"];
+                desplegarComunas(comunasArau);
+                break;
+        case "12": let comunasLag = ["Castro","Ancud","Dalcahue","Quemchi"];
+                desplegarComunas(comunasLag);
                 break;
     }
 })
@@ -208,11 +234,16 @@ mostrar();
 $("#crear").on("click",function(){
     let nuevoAnt = $("#inputAntecedente").val();
     console.log(nuevoAnt);
-    ocultar();
-    antecedentes.unshift(nuevoAnt + "");
-    //valor por defecto
-    fechas.unshift(new Date('Jan 10 2021'));
-    mostrar();
+
+    if(!validarCampoNoVacio($("#inputAntecedente"))){
+        ocultar();
+        antecedentes.unshift(nuevoAnt + "");
+        //valor por defecto
+        fechas.unshift(new Date('Jan 10 2021'));
+        mostrar();
+        document.getElementById("inputAntecedente")?.addEventListener('input', function() {validarCampoNoVacio($("#inputAntecedente"));})
+    }
+
 })
 
 
@@ -277,6 +308,7 @@ function ocultar(){
 
 /* ELIMINAR UN ANTECEDENTE */
 function eliminar(indice:number){
+    console.log("eliminar")
     ocultar();
     antecedentes.splice(indice,1);
     fechas.splice(indice,1);
