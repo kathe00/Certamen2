@@ -1,0 +1,47 @@
+#editar {
+  text-decoration: none;
+  color: #5352b9;
+}
+
+#editar:hover {
+  color: #9d9ce7;
+  cursor: pointer;
+}
+
+#mas {
+  color: #5352b9;
+}
+
+#mas:hover {
+  color: #9d9ce7;
+  cursor: pointer;
+}
+
+.eliminar {
+  color: #5352b9;
+}
+
+.eliminar:hover {
+  color: #9d9ce7;
+  cursor: pointer;
+}
+
+#actualizar {
+  background-color: #7674e7;
+  border: #7674e7;
+}
+
+#crear {
+  background-color: #7674e7;
+  border: #7674e7;
+}
+
+#crear:hover {
+  background-color: #9d9ce7;
+  cursor: pointer;
+}
+
+#actualizar:hover {
+  background-color: #9d9ce7;
+}
+/*# sourceMappingURL=botones.css.map */

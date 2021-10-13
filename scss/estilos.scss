@@ -1,0 +1,199 @@
+#container{
+    width: 99%;
+    max-width: 1000px;
+    border: 1px solid rgb(156, 159, 192);
+    background-color: rgb(232, 236, 255);
+    padding: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+h1{
+    text-align: center;
+    margin-bottom: 50px;
+    width: 100%;
+}
+
+#perfil{
+    width: 100%;
+}
+
+p,
+#perfil ul{
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+
+
+.block,
+#perfil ul #info{
+    padding: 10px;
+}
+
+#perfil ul #imagen{
+    border: 1px solid rgb(156, 159, 192);
+    background-color: rgb(249, 250, 255);
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 150px;
+    height: 150px;
+    padding: 25px;
+}
+
+#perfil ul #imagen span{
+    font-size: 100px;
+    color:rgb(155, 160, 170)
+}
+
+#perfil ul #info #nombre{
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+#signos{
+    width: 25%;
+    float: left;
+    height: 500px;
+}
+
+#signos #tituloSignos{
+    font-weight: bold;
+}
+
+#signos ul{
+    border: 1px solid rgb(156, 159, 192);
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+#signos ul li{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin: 10px;
+}
+
+#signos ul li p{
+    margin: 0px;
+}
+
+#signos ul li{
+    display:flex;
+    align-items: center;
+}
+
+#signos ul li .variable{
+    height: 25px;
+    width:fit-content;
+    text-align: center;
+    margin-left: 20px;
+}
+
+/* - Estilos del formulario - */
+
+
+#formulario{
+    width: 80%;
+}
+
+#formulario #formTitulo{
+    font-weight: bold;
+    font-size: 35px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#formulario label{
+    width: 30%;
+}
+
+#formulario input{
+    width: 70%;
+}
+#formulario select{
+    width: 70%;
+}
+
+#formulario ul{
+    width: 100%;
+    margin-left: 30px;
+}
+
+#formulario ul li{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+
+/* - Estilos del area Antecedentes Clínicos - */
+
+#contenido{
+    float: right;
+    width: 75%;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+#contenido #infoAntecedentes{
+    width: 100%;
+    margin-left: 30px;
+}
+
+#contenido #tituloContenido{
+    font-weight: bold;
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 60px;
+    margin-bottom: 0px;
+}
+
+#contenido #infoAntecedentes li{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#contenido #infoAntecedentes li hr{
+    width: 85%;
+    color: rgb(7, 7, 34);
+}
+
+#contenido #infoAntecedentes li div{
+    width: 50%;
+}
+
+#contenido .eliminar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+    padding-top: 25px;
+}
+
+//añadir antecedentes 
+
+#collapseAntecedentes p{
+    margin-left: 60px;
+}
+
+#collapseAntecedentes ul{
+    padding-left: 50px;
+}
+
+#collapseAntecedentes ul li{
+    margin: 10px;
+}
