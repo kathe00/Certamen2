@@ -3,46 +3,57 @@ define(["require", "exports", "jquery"], function (require, exports, jquery) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var $ = jquery;
     /* ----------------------------------------------------------- EDITAR INFORMACIÓN ------------------------------------------------------------------- */
-    var formulario = document.querySelectorAll('.needs-validation');
     var nom = document.getElementById('formNombre');
     var rut = document.getElementById('formRut');
     var tel = document.getElementById('formTelefono');
     var email = document.getElementById('formEmail');
     var edad = document.getElementById('formEdad');
-    //se recorre el formulario como un array
-    Array.prototype.slice.call(formulario).forEach(function (form) {
-        //se crea un event listener del boton "actualizar" para validar
-        form.addEventListener('submit', function (event) {
-            //validar el campo "nombre"
-            validarInputSimple("formNombre");
-            //validar el campo "edad"
-            validarInputSimple("formEdad");
-            //validar el campo "rut"
-            validarRut();
-            //validar el campo "email"
-            validarInputSimple("formEmail");
-            //validar el campo "telefono"
-            validarTelefono();
-            //validar el campo "asignatura"
-            if ($("#checkAs5").is(':checked')) {
-                validarInputSimple("asignatura");
-            }
-            else {
-                $("#asignatura").addClass('is-valid');
-            }
-            //validar que los comentarios no sean más de 500 caracteres
-            validarInputSimple("coments");
-            if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            //Si todo ha sido validado
-            var estado1 = ((nom === null || nom === void 0 ? void 0 : nom.matches('.is-valid')) && (rut === null || rut === void 0 ? void 0 : rut.matches('.is-valid')) && (email === null || email === void 0 ? void 0 : email.matches('.is-valid')) && (tel === null || tel === void 0 ? void 0 : tel.matches('.is-valid')) && (edad === null || edad === void 0 ? void 0 : edad.matches('.is-valid')));
-            if (estado1) {
-                //guardar los datos
-            }
-        });
+    //no entiendo por qué continua haciendo la accion de submit y se recarga la pagina :(
+    $("#actualizar").on("click", function (form) {
+        var nuevo = $("#formNombre").val();
+        console.log(nuevo);
+        if (validarFormulario()) {
+            console.log("valido");
+        }
+        else {
+            console.log("invalido");
+            form.preventDefault;
+            form.stopPropagation;
+        }
     });
+    function validarFormulario() {
+        var _a;
+        validarInputSimple("formNombre");
+        (_a = document.getElementById("formNombre")) === null || _a === void 0 ? void 0 : _a.addEventListener('input', function () { validarCampoNoVacio($("#formNombre")); });
+        return false;
+    }
+    /*
+    $("#actualizar").on("click",function(){
+          //validar el campo "nombre"
+          validarInputSimple("formNombre");
+    
+          //validar el campo "edad"
+          validarInputSimple("formEdad");
+      
+          //validar el campo "rut"
+          validarRut();
+      
+          //validar el campo "email"
+          validarInputSimple("formEmail");
+      
+          //validar el campo "telefono"
+          validarTelefono();
+          
+          //Si todo ha sido validado
+          var estado1 = (nom?.matches('.is-valid')&&rut?.matches('.is-valid')&&email?.matches('.is-valid')&&tel?.matches('.is-valid')&&edad?.matches('.is-valid'));
+          console.log("paso por aqui");
+          if(!estado1){
+                //mostrar invalido
+          }else{
+                //guardar
+          }
+    })
+    */
     /* ---------------------- FUNCIONES -------------------- */
     function validarCampoNoVacio(campo) {
         if (campo.val().length == 0) {
@@ -65,96 +76,129 @@ define(["require", "exports", "jquery"], function (require, exports, jquery) {
         (_a = document.getElementById(campo)) === null || _a === void 0 ? void 0 : _a.addEventListener('input', function () { validarCampoNoVacio($("#" + campo)); });
     }
     /* ------------------------- Validar rut ------------------ */
+    /*
     //rut
-    function formatoValidoRut(rut) {
-        var pattern = /^\d{7,8}-[k|K|\d]{1}$/;
-        return pattern.test(rut);
+    function formatoValidoRut(rut:any){
+      var pattern = /^\d{7,8}-[k|K|\d]{1}$/;
+      return pattern.test(rut);
     }
-    function validarRut() {
-        var _a;
-        //comprobar que no esté vacío
-        validarCampoNoVacio($("#rut"));
-        //continuar validando
-        (_a = document.getElementById('rut')) === null || _a === void 0 ? void 0 : _a.addEventListener('input', function () {
-            if (validarCampoNoVacio($("#rut"))) {
-                $("#oblRut").prop("hidden", false);
-                $("#invRut").prop("hidden", true);
-            }
-            else {
-                //si no está vacío, hay que asegurarse de que tenga el formato válido
-                if (!formatoValidoRut($("#rut").val())) {
-                    $("#rut").removeClass('is-valid');
-                    $("#rut").addClass('is-invalid');
-                    $("#oblRut").prop("hidden", true);
-                    $("#invRut").prop("hidden", false);
-                }
-                else {
-                    $("#rut").removeClass('is-invalid');
-                    $("#rut").addClass('is-valid');
-                    $("#oblRut").prop("hidden", true);
-                    $("#invRut").prop("hidden", true);
-                }
-            }
-        });
+    
+    function validarRut(){
+      //comprobar que no esté vacío
+      validarCampoNoVacio($("#rut"));
+    
+      //continuar validando
+      document.getElementById('rut')?.addEventListener('input', function() {
+        if(validarCampoNoVacio($("#rut"))){
+          $("#oblRut").prop("hidden", false);
+          $("#invRut").prop("hidden", true);
+        }else{
+          //si no está vacío, hay que asegurarse de que tenga el formato válido
+          if(!formatoValidoRut($("#rut").val())){
+            $("#rut").removeClass('is-valid');
+            $("#rut").addClass('is-invalid');
+            $("#oblRut").prop("hidden", true);
+            $("#invRut").prop("hidden", false);
+          }else{
+            $("#rut").removeClass('is-invalid');
+            $("#rut").addClass('is-valid');
+            $("#oblRut").prop("hidden", true);
+            $("#invRut").prop("hidden", true);
+          }
+        }
+      })
     }
+    
     /* ------------------------ Validar nro de teléfono ----------------------- */
-    function formatoValidoTelefono(numero) {
-        if (numero > 99999999 && numero < 1000000000) {
-            return true;
-        }
-        else {
-            return false;
-        }
+    /*
+    function formatoValidoTelefono(numero:any){
+      if(numero > 99999999 && numero < 1000000000){
+        return true;
+      }else{
+        return false;
+      }
     }
-    function validarTelefono() {
-        var _a;
-        //comprobar que no esté vacío
-        validarCampoNoVacio($("#telefono"));
-        //continuar validando
-        (_a = document.getElementById('telefono')) === null || _a === void 0 ? void 0 : _a.addEventListener('input', function () {
-            if (validarCampoNoVacio($("#telefono"))) {
-                $("#oblTelefono").prop("hidden", false);
-                $("#invTelefono").prop("hidden", true);
-            }
-            else {
-                //si no está vacío, hay que asegurarse de que tenga el formato válido
-                if (!formatoValidoTelefono($("#telefono").val())) {
-                    $("#telefono").removeClass('is-valid');
-                    $("#telefono").addClass('is-invalid');
-                    $("#oblTelefono").prop("hidden", true);
-                    $("#invTelefono").prop("hidden", false);
-                }
-                else {
-                    $("#telefono").removeClass('is-invalid');
-                    $("#telefono").addClass('is-valid');
-                    $("#oblTelefono").prop("hidden", true);
-                    $("#invTelefono").prop("hidden", true);
-                }
-            }
-        });
+    
+    function validarTelefono(){
+      //comprobar que no esté vacío
+      validarCampoNoVacio($("#telefono"));
+    
+      //continuar validando
+      document.getElementById('telefono')?.addEventListener('input', function() {
+        if(validarCampoNoVacio($("#telefono"))){
+          $("#oblTelefono").prop("hidden", false);
+          $("#invTelefono").prop("hidden", true);
+        }else{
+          //si no está vacío, hay que asegurarse de que tenga el formato válido
+          if(!formatoValidoTelefono($("#telefono").val())){
+            $("#telefono").removeClass('is-valid');
+            $("#telefono").addClass('is-invalid');
+            $("#oblTelefono").prop("hidden", true);
+            $("#invTelefono").prop("hidden", false);
+          }else{
+            $("#telefono").removeClass('is-invalid');
+            $("#telefono").addClass('is-valid');
+            $("#oblTelefono").prop("hidden", true);
+            $("#invTelefono").prop("hidden", true);
+          }
+        }
+      })
     }
-    /* -------------- activar comunas segun región ----------------- */
+    
+  
+  /* -------------- activar comunas segun región ----------------- */
     var region = document.getElementById("formRegion");
     region === null || region === void 0 ? void 0 : region.addEventListener("change", function (e) {
         var valor = $("#formRegion").val();
-        console.log("a");
         console.log(valor);
         switch (valor) {
-            case 1:
+            case "1":
                 var comunasArica = ["Arica", "Camarones", "Putre", "General Lagos"];
                 desplegarComunas(comunasArica);
                 break;
-            case 2:
+            case "2":
                 var comunasTarap = ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"];
                 desplegarComunas(comunasTarap);
                 break;
-            case 3:
+            case "3":
                 var comunasAntof = ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollague", "San Pedro de Atacama", "Tocopilla", "María Elena"];
                 desplegarComunas(comunasAntof);
                 break;
-            case 4:
+            case "4":
                 var comunasAtac = ["Chañaral", "Diego de Almagro", "Copiapó", "Caldera", "Tierra Amarilla", "Vallenar", "Alto del Carmen"];
                 desplegarComunas(comunasAtac);
+                break;
+            case "5":
+                var comunasCoquim = ["Illapel", "Canela", "Los Vilos", "Salamanca", "Coquimbo", "Andacollo", "La Higuera", "La Serena", "Paihuano", "Vicuña", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado"];
+                desplegarComunas(comunasCoquim);
+                break;
+            case "6":
+                var comunasValpo = ["Los Andes", "Calle Larga", "Rinconada", "San Esteban", "Quilpué", "Limache", "Olmué", "Villa Alemana", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "Hijuelas", "La Calera", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "Cartagena", "El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llay Llay", "Panquehue", "Putaendo", "Santa María", "Valparaíso", "Casablanca", "Concón", "Juan Fernandez", "Puchuncaví", "Quintero", "Viña del Mar"];
+                desplegarComunas(comunasValpo);
+                break;
+            case "7":
+                var comunasMet = ["Colina", "Lampa", "Buin", "Melipilla", "Santiago"];
+                desplegarComunas(comunasMet);
+                break;
+            case "8":
+                var comunasOhigg = ["Rancagua", "Coinco", "Doñihue", "Rengo"];
+                desplegarComunas(comunasOhigg);
+                break;
+            case "9":
+                var comunasMaule = ["Cauquenes", "Pelluhue", "Curicó", "Molina"];
+                desplegarComunas(comunasMaule);
+                break;
+            case "10":
+                var comunasBio = ["Lebu", "Arauco", "Contulmo", "Los Ángeles", "Concepción"];
+                desplegarComunas(comunasBio);
+                break;
+            case "11":
+                var comunasArau = ["Temuco", "Cunco", "Toltén", "Lautaro"];
+                desplegarComunas(comunasArau);
+                break;
+            case "12":
+                var comunasLag = ["Castro", "Ancud", "Dalcahue", "Quemchi"];
+                desplegarComunas(comunasLag);
                 break;
         }
     });
@@ -183,13 +227,17 @@ define(["require", "exports", "jquery"], function (require, exports, jquery) {
     mostrar();
     /* *Agregar nuevos datos* */
     $("#crear").on("click", function () {
+        var _a;
         var nuevoAnt = $("#inputAntecedente").val();
         console.log(nuevoAnt);
-        ocultar();
-        antecedentes.unshift(nuevoAnt + "");
-        //valor por defecto
-        fechas.unshift(new Date('Jan 10 2021'));
-        mostrar();
+        if (!validarCampoNoVacio($("#inputAntecedente"))) {
+            ocultar();
+            antecedentes.unshift(nuevoAnt + "");
+            //valor por defecto
+            fechas.unshift(new Date('Jan 10 2021'));
+            mostrar();
+            (_a = document.getElementById("inputAntecedente")) === null || _a === void 0 ? void 0 : _a.addEventListener('input', function () { validarCampoNoVacio($("#inputAntecedente")); });
+        }
     });
     //Funcion que muestra los antecedentes clínicos
     function mostrar() {
@@ -248,9 +296,11 @@ define(["require", "exports", "jquery"], function (require, exports, jquery) {
     }
     /* ELIMINAR UN ANTECEDENTE */
     function eliminar(indice) {
+        console.log("eliminar");
         ocultar();
         antecedentes.splice(indice, 1);
         fechas.splice(indice, 1);
         mostrar();
     }
 });
+
